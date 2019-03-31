@@ -5,6 +5,7 @@ import skimage.data
 from skimage import io
 from skimage import color
 
+
 def load_data(data_dir):
     directories = [d for d in os.listdir(data_dir)
                    if os.path.isdir(os.path.join(data_dir, d))]
