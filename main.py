@@ -8,7 +8,7 @@ import skimage.transform
 import tensorflow as tf
 from tensorflow.contrib.layers import flatten
 
-training_data_dir = '/home/dingxt/PycharmProjects/BigdataProject/frames/'
+training_data_dir = '/home/dingxt/PycharmProjects/BigdataProject/Location-Verfication/frames'
 images,labels = LoadData.load_data(training_data_dir)
 print(images[0].shape)
 #print(labels)
