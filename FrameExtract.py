@@ -1,11 +1,12 @@
 
 import cv2
 import os
-dirname = '/home/parallels/BigdataProject/frames/'+format(5,'04d')
+dirname = '/home/dingxt/PycharmProjects/BigdataProject/Location-Verfication/frames'+format(5,'04d')
 #os.mkdir(dirname)
 
-vidcap = cv2.VideoCapture('/home/parallels/BigdataProject/video/new/5/VID_20190321_133316.mp4')
+vidcap = cv2.VideoCapture('/home/dingxt/PycharmProjects/BigdataProject/Location-Verfication/video/new/5/VID_20190321_133316.mp4')
 success,image = vidcap.read()
+
 
 def getFrame(sec,count):
   vidcap.set(cv2.CAP_PROP_POS_MSEC, sec * 1000)
