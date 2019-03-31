@@ -3,6 +3,7 @@ import os
 
 #downsize images
 
+
 def downsizeImg(data_dir,basewidth):
     directories = [d for d in os.listdir(data_dir)
                    if os.path.isdir(os.path.join(data_dir, d))]
@@ -17,6 +18,7 @@ def downsizeImg(data_dir,basewidth):
             img = img.resize((basewidth,hsize),Image.ANTIALIAS)
             img.save(f)
 
-data_dir = '/home/parallels/BigdataProject/frames/'
+
+data_dir = "/home/dingxt/PycharmProjects/BigdataProject/Location-Verfication/frames"
 basewidth = 300
 downsizeImg(data_dir,basewidth)
