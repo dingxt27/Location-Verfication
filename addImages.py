@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 import random
-
+'''dingxt'''
 def chageLight (img):
     image1 = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
     random_bright = .25 + np.random.uniform()
