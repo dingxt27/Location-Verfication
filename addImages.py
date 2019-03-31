@@ -1,13 +1,15 @@
 import numpy as np
 import cv2
 import random
-'''dingxt'''
+
+
 def chageLight (img):
     image1 = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
     random_bright = .25 + np.random.uniform()
     image1[:, :, 2] = image1[:, :, 2] * random_bright
     image1 = cv2.cvtColor(image1, cv2.COLOR_HSV2RGB)
     return image1
+
 
 def transform (img):
     ang_range = 25
@@ -18,6 +20,7 @@ def transform (img):
     image2 = cv2.warpAffine(img, Rot_M, (cols, rows))
 
     return image2
+
 
 def randomGetImage (images,labels,label):
     labels_bins = np.bincount(labels)
@@ -32,8 +35,6 @@ def randomGetImage (images,labels,label):
 def equalize_samples_set(images, labels):
     labels_count_arr = np.bincount(labels)
     labels_bins = np.arange(len(labels_count_arr))
-
-
 
     for label in labels_bins:
         labels_no_to_add = 190 - labels_count_arr[label]
@@ -52,7 +53,6 @@ def equalize_samples_set(images, labels):
         labels = labels + tempLabels
         #images.append(images_temp)
         #labels.append(labels_temp)
-
 
     return images, labels
 
