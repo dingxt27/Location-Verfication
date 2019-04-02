@@ -6,14 +6,22 @@ import skimage.data
 import numpy as np
 import skimage.transform
 import tensorflow as tf
+import random
+
 from tensorflow.contrib.layers import flatten
 
 training_data_dir = '/home/dingxt/PycharmProjects/BigdataProject/Location-Verfication/frames'
+testing_data_dir = '/home/dingxt/PycharmProjects/BigdataProject/Location-Verfication/Test'
+
 images,labels = LoadData.load_data(training_data_dir)
-print(images[0].shape)
+print(len(labels))
+print(len(images))
+#print(images[0].shape)
 #print(labels)
 
 newImgs, newLabels = addImages.equalize_samples_set(images,labels)
+print(len(newLabels))
+
 #dimension = newImgs[0].shape
 
 #print(len(newLabels))
@@ -32,7 +40,9 @@ def display_image_labels(images,labels):
 
     plt.show()
 
+
 newImages_gray = []
+
 #Histogram equalization & grayscale
 for Im in newImgs:
     img_to_yuv = cv2.cvtColor(Im, cv2.COLOR_BGR2YUV)
@@ -47,6 +57,7 @@ print(dimension)
 #resize img
 images32 = [skimage.transform.resize(image,(32,32),mode = 'constant')
             for image in newImages_gray]
+print(len(images32))
 
 for img in images32[:5]:
     print("Shape: {0}, min: {1}, max: {2}".format(img.shape,img.min(),img.max()))
@@ -55,10 +66,105 @@ images_a = np.array(images32)
 #images_a = images_a.reshape(images_a.shape[0], images_a.shape[1], images_a.shape[2],1)
 print("labels:", labels_a.shape, "\nimages: ",images_a.shape)
 
-EPOCHS = 100
-BATCH_SIZE = 50
+#test set
+test_images,test_labels = LoadData.load_data(testing_data_dir)
+newTest_gray = []
+#grayscale
+for im in test_images:
+    img_to_yuv1 = cv2.cvtColor(im, cv2.COLOR_BGR2YUV)
+    img_to_yuv1[:, :, 0] = cv2.equalizeHist(img_to_yuv1[:, :, 0])
+    hist_equalization_result1 = cv2.cvtColor(img_to_yuv1, cv2.COLOR_YUV2BGR)
+    im = cv2.cvtColor(hist_equalization_result1, cv2.COLOR_RGB2GRAY)[:, :, None]
+    #im = cv2.equalizeHist(im)
+    newTest_gray.append(im)
+
+test_images32 = [skimage.transform.resize(image, (32,32), mode = 'constant')
+                 for image in newTest_gray]
+
+test_images32_a = np.array(test_images32)
+test_labels_a = np.array(test_labels)
+#test_images32_a = test_images32_a.reshape(test_images32_a.shape[0], test_images32_a.shape[1], test_images32_a.shape[2],1)
+print("labels1:", test_labels_a.shape, "\nimages1: ",test_images32_a.shape)
+
+#create graph to holdthe model
+'''graph = tf.Graph()
+
+#Create model in the graph
+with graph.as_default():
+    images_ph = tf.placeholder(tf.float32,[None,32,32,1])
+    labels_ph = tf.placeholder(tf.int32, [None])
+
+    images_flat = tf.contrib.layers.flatten(images_ph)
+
+    logits = tf.contrib.layers.fully_connected(images_flat,2,tf.nn.relu)
+
+    predicted_labels = tf.argmax(logits,1)
+
+    #loss function
+    loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits,labels = labels_ph))
+
+    #training op
+    train = tf.train.AdamOptimizer(learning_rate= 0.001).minimize(loss)
+
+    init = tf.global_variables_initializer()
+
+print("images_flat: ", images_flat)
+print("logits: ", logits)
+print("loss: ", loss)
+print("predicted_labels: ", predicted_labels)
+
+session = tf.Session(graph=graph)
+_= session.run([init])
+
+for i in range(201):
+    _, loss_value = session.run([train,loss],
+                                feed_dict= {images_ph: images_a, labels_ph: labels_a})
+    if i%10 == 0:
+        print("Loss: ", loss_value)
+
+sample_indexes = random.sample(range(len(images32)),10)
+print ("sampel_indexes: ",sample_indexes)
+print ("length of labels:", len(labels))
+sample_images = [images_a[i] for i in sample_indexes]
+sample_images1 = [images32[i] for i in sample_indexes]
+sample_labels = [newLabels[i] for i in sample_indexes]
+
+predicted = session.run([predicted_labels],
+                        feed_dict = {images_ph: sample_images})[0]
+print(sample_labels)
+print(predicted)
+fig = plt.figure(figsize= (10,10))
+for i in range(len(sample_images)):
+    truth = sample_labels[i]
+    prediction = predicted[i]
+    plt.subplot(5,2,1+i)
+    plt.axis('off')
+    color = 'green' if truth == prediction else 'red'
+    plt.text(40,10,"Truth:     {0}\nPrediction:  {1}".format(truth,prediction),
+             fontsize=12,color = color)
+    plt.imshow(sample_images1[i])
+plt.show()
+
+#evaluation
+test_images,test_labels = LoadData(testing_data_dir)
+
+test_images32 = [skimage.transform.resize(image, (32,32), mode = 'constant')
+                 for image in test_images]
+display_image_labels(test_images32,test_labels)
+
+predicted = session.run([predicted_labels],
+                        feed_dict={images_ph: test_images32_a})[0]
+
+match_count = sum([int(y == y_) for y, y_ in zip(test_labels,predicted)])
+accuracy = match_count/len(test_labels)
+print("Accuracy: {:.3f}".format(accuracy))
+
+session.close()
+'''
+EPOCHS = 50
+BATCH_SIZE = 10
 image_depth = 1 #added by myself
-n_classes =  5#added by myself
+n_classes = 2#added by myself
 
 
 def LeNet(x):
@@ -171,3 +277,14 @@ with tf.Session() as sess:
 
     saver.save(sess, './lenet')
     print("Model saved")
+
+with tf.Session() as sess:
+    saver.restore(sess, tf.train.latest_checkpoint('.'))
+
+    test_accuracy = evaluate(test_images32_a, test_labels)
+    print("Test Accuracy = {:.3f}".format(test_accuracy))
+
+plt.plot(cost_arr)
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.show()
