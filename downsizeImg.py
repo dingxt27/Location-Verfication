@@ -3,7 +3,6 @@ import os
 
 #downsize images
 
-
 def downsizeImg(data_dir,basewidth):
     directories = [d for d in os.listdir(data_dir)
                    if os.path.isdir(os.path.join(data_dir, d))]
