@@ -1,10 +1,10 @@
 
 import cv2
 import os
-dirname = '/home/dingxt/PycharmProjects/BigdataProject/Location-Verfication/frames'+format(5,'04d')
+dirname = '/home/dingxt/PycharmProjects/BigdataProject/Location-Verfication/frames/'+format(2,'04d')
 #os.mkdir(dirname)
 
-vidcap = cv2.VideoCapture('/home/dingxt/PycharmProjects/BigdataProject/Location-Verfication/video/new/5/VID_20190321_133316.mp4')
+vidcap = cv2.VideoCapture('/home/dingxt/PycharmProjects/BigdataProject/Location-Verfication/video/new/6/VID_20190331_133713.mp4')
 success,image = vidcap.read()
 
 
@@ -13,12 +13,13 @@ def getFrame(sec,count):
   hasFrames, image = vidcap.read()
   if hasFrames:
     cv2.imwrite(os.path.join(dirname,'%d.jpg'%count),image)  # save frame as JPG file
+    #print('yes')
   return hasFrames
 
 
 sec = 0
 frameRate = 0.5
-count = 173
+count = 39
 success = getFrame(sec,count)
 while success:
   sec = sec + frameRate
