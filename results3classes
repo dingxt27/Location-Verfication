@@ -1,0 +1,110 @@
+/usr/bin/python3.6 /home/dingxt/PycharmProjects/BigdataProject/Location-Verfication/main.py
+479
+479
+600
+(168, 300, 3)
+/usr/local/lib/python3.6/dist-packages/skimage/transform/_warps.py:110: UserWarning: Anti-aliasing will be enabled by default in skimage 0.15 to avoid aliasing artifacts when down-sampling images.
+  warn("Anti-aliasing will be enabled by default in skimage 0.15 to "
+600
+Shape: (32, 32, 3), min: 0.0, max: 1.0
+Shape: (32, 32, 3), min: 0.0, max: 1.0
+Shape: (32, 32, 3), min: 0.0, max: 1.0
+Shape: (32, 32, 3), min: 0.004963235294117553, max: 1.0
+Shape: (32, 32, 3), min: 0.00018382352941183436, max: 0.996078431372549
+labels: (600,) 
+images:  (600, 32, 32, 3)
+labels1: (52,) 
+images1:  (52, 32, 32, 3)
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow/python/framework/op_def_library.py:263: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow/contrib/layers/python/layers/layers.py:1624: flatten (from tensorflow.python.layers.core) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.flatten instead.
+2019-04-03 00:20:05.228009: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2394280000 Hz
+2019-04-03 00:20:05.242581: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x33f2cb0 executing computations on platform Host. Devices:
+2019-04-03 00:20:05.242632: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+Training...
+
+2019-04-03 00:20:05.900744: W tensorflow/core/framework/allocator.cc:124] Allocation of 24840000 exceeds 10% of system memory.
+2019-04-03 00:20:05.901330: W tensorflow/core/framework/allocator.cc:124] Allocation of 24840000 exceeds 10% of system memory.
+2019-04-03 00:20:05.907075: W tensorflow/core/framework/allocator.cc:124] Allocation of 28929600 exceeds 10% of system memory.
+2019-04-03 00:20:05.944371: W tensorflow/core/framework/allocator.cc:124] Allocation of 24840000 exceeds 10% of system memory.
+2019-04-03 00:20:05.945980: W tensorflow/core/framework/allocator.cc:124] Allocation of 24840000 exceeds 10% of system memory.
+EPOCH; 1; Train.Acc.; 0.685; Loss; 1.14801
+EPOCH; 2; Train.Acc.; 0.538; Loss; 0.96246
+EPOCH; 3; Train.Acc.; 0.743; Loss; 0.68172
+EPOCH; 4; Train.Acc.; 0.773; Loss; 0.53789
+EPOCH; 5; Train.Acc.; 0.790; Loss; 0.58650
+EPOCH; 6; Train.Acc.; 0.798; Loss; 0.59955
+EPOCH; 7; Train.Acc.; 0.792; Loss; 0.46754
+EPOCH; 8; Train.Acc.; 0.848; Loss; 0.43446
+EPOCH; 9; Train.Acc.; 0.860; Loss; 0.32304
+EPOCH; 10; Train.Acc.; 0.870; Loss; 0.32797
+EPOCH; 11; Train.Acc.; 0.882; Loss; 0.31830
+EPOCH; 12; Train.Acc.; 0.903; Loss; 0.36732
+EPOCH; 13; Train.Acc.; 0.900; Loss; 0.49777
+EPOCH; 14; Train.Acc.; 0.898; Loss; 0.32572
+EPOCH; 15; Train.Acc.; 0.910; Loss; 0.26440
+EPOCH; 16; Train.Acc.; 0.947; Loss; 0.46689
+EPOCH; 17; Train.Acc.; 0.927; Loss; 0.35159
+EPOCH; 18; Train.Acc.; 0.948; Loss; 0.22647
+EPOCH; 19; Train.Acc.; 0.952; Loss; 0.19126
+EPOCH; 20; Train.Acc.; 0.962; Loss; 0.26841
+EPOCH; 21; Train.Acc.; 0.925; Loss; 0.26298
+EPOCH; 22; Train.Acc.; 0.943; Loss; 0.21175
+EPOCH; 23; Train.Acc.; 0.965; Loss; 0.13219
+EPOCH; 24; Train.Acc.; 0.965; Loss; 0.39945
+EPOCH; 25; Train.Acc.; 0.977; Loss; 0.24879
+EPOCH; 26; Train.Acc.; 0.968; Loss; 0.10776
+EPOCH; 27; Train.Acc.; 0.977; Loss; 0.12812
+EPOCH; 28; Train.Acc.; 0.990; Loss; 0.10132
+EPOCH; 29; Train.Acc.; 0.988; Loss; 0.20370
+EPOCH; 30; Train.Acc.; 0.985; Loss; 0.14969
+EPOCH; 31; Train.Acc.; 0.980; Loss; 0.15401
+EPOCH; 32; Train.Acc.; 0.957; Loss; 0.22052
+EPOCH; 33; Train.Acc.; 0.980; Loss; 0.17012
+EPOCH; 34; Train.Acc.; 0.975; Loss; 0.10194
+EPOCH; 35; Train.Acc.; 0.992; Loss; 0.10016
+EPOCH; 36; Train.Acc.; 0.997; Loss; 0.07606
+EPOCH; 37; Train.Acc.; 0.998; Loss; 0.08733
+EPOCH; 38; Train.Acc.; 0.990; Loss; 0.10750
+EPOCH; 39; Train.Acc.; 0.948; Loss; 0.15835
+EPOCH; 40; Train.Acc.; 0.995; Loss; 0.11320
+EPOCH; 41; Train.Acc.; 0.998; Loss; 0.12381
+EPOCH; 42; Train.Acc.; 0.998; Loss; 0.10739
+EPOCH; 43; Train.Acc.; 1.000; Loss; 0.08039
+EPOCH; 44; Train.Acc.; 0.995; Loss; 0.08354
+EPOCH; 45; Train.Acc.; 1.000; Loss; 0.09227
+EPOCH; 46; Train.Acc.; 1.000; Loss; 0.07112
+EPOCH; 47; Train.Acc.; 1.000; Loss; 0.09439
+EPOCH; 48; Train.Acc.; 0.995; Loss; 0.11364
+EPOCH; 49; Train.Acc.; 1.000; Loss; 0.08925
+EPOCH; 50; Train.Acc.; 1.000; Loss; 0.07968
+EPOCH; 51; Train.Acc.; 1.000; Loss; 0.08700
+EPOCH; 52; Train.Acc.; 1.000; Loss; 0.09073
+EPOCH; 53; Train.Acc.; 1.000; Loss; 0.07857
+EPOCH; 54; Train.Acc.; 1.000; Loss; 0.07212
+EPOCH; 55; Train.Acc.; 1.000; Loss; 0.07405
+EPOCH; 56; Train.Acc.; 1.000; Loss; 0.07278
+EPOCH; 57; Train.Acc.; 1.000; Loss; 0.07265
+EPOCH; 58; Train.Acc.; 0.998; Loss; 0.07404
+EPOCH; 59; Train.Acc.; 1.000; Loss; 0.07472
+EPOCH; 60; Train.Acc.; 1.000; Loss; 0.07582
+EPOCH; 61; Train.Acc.; 1.000; Loss; 0.07124
+EPOCH; 62; Train.Acc.; 1.000; Loss; 0.08864
+EPOCH; 63; Train.Acc.; 1.000; Loss; 0.06880
+EPOCH; 64; Train.Acc.; 1.000; Loss; 0.07873
+EPOCH; 65; Train.Acc.; 1.000; Loss; 0.07401
+EPOCH; 66; Train.Acc.; 1.000; Loss; 0.07265
+EPOCH; 67; Train.Acc.; 1.000; Loss; 0.06851
+EPOCH; 68; Train.Acc.; 1.000; Loss; 0.07211
+EPOCH; 69; Train.Acc.; 1.000; Loss; 0.07037
+EPOCH; 70; Train.Acc.; 1.000; Loss; 0.06952
+Model saved
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow/python/training/saver.py:1266: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+Test Accuracy = 0.846
+
+Process finished with exit code 0
