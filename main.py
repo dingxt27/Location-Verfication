@@ -6,6 +6,7 @@ import skimage.data
 import numpy as np
 import skimage.transform
 import tensorflow as tf
+#import Keras
 import random
 
 from tensorflow.contrib.layers import flatten
@@ -48,7 +49,8 @@ for Im in newImgs:
     img_to_yuv = cv2.cvtColor(Im, cv2.COLOR_BGR2YUV)
     img_to_yuv[:, :, 0] = cv2.equalizeHist(img_to_yuv[:, :, 0])
     hist_equalization_result = cv2.cvtColor(img_to_yuv, cv2.COLOR_YUV2BGR)
-    Im = cv2.cvtColor(hist_equalization_result, cv2.COLOR_RGB2GRAY)[:, :, None]
+    Im = hist_equalization_result#this step is 3 channel color image
+    #Im = cv2.cvtColor(hist_equalization_result, cv2.COLOR_RGB2GRAY)[:, :, None]
     newImages_gray.append(Im)
 
 dimension = newImages_gray[0].shape
@@ -74,8 +76,8 @@ for im in test_images:
     img_to_yuv1 = cv2.cvtColor(im, cv2.COLOR_BGR2YUV)
     img_to_yuv1[:, :, 0] = cv2.equalizeHist(img_to_yuv1[:, :, 0])
     hist_equalization_result1 = cv2.cvtColor(img_to_yuv1, cv2.COLOR_YUV2BGR)
-    im = cv2.cvtColor(hist_equalization_result1, cv2.COLOR_RGB2GRAY)[:, :, None]
-    #im = cv2.equalizeHist(im)
+    #im = cv2.cvtColor(hist_equalization_result1, cv2.COLOR_RGB2GRAY)[:, :, None]
+    im = hist_equalization_result1
     newTest_gray.append(im)
 
 test_images32 = [skimage.transform.resize(image, (32,32), mode = 'constant')
@@ -87,7 +89,7 @@ test_labels_a = np.array(test_labels)
 print("labels1:", test_labels_a.shape, "\nimages1: ",test_images32_a.shape)
 
 #create graph to holdthe model
-'''graph = tf.Graph()
+''''graph = tf.Graph()
 
 #Create model in the graph
 with graph.as_default():
@@ -146,7 +148,7 @@ for i in range(len(sample_images)):
 plt.show()
 
 #evaluation
-test_images,test_labels = LoadData(testing_data_dir)
+test_images,test_labels = LoadData.load_data(testing_data_dir)
 
 test_images32 = [skimage.transform.resize(image, (32,32), mode = 'constant')
                  for image in test_images]
@@ -159,11 +161,11 @@ match_count = sum([int(y == y_) for y, y_ in zip(test_labels,predicted)])
 accuracy = match_count/len(test_labels)
 print("Accuracy: {:.3f}".format(accuracy))
 
-session.close()
-'''
-EPOCHS = 50
-BATCH_SIZE = 10
-image_depth = 1 #added by myself
+session.close()'''''
+
+EPOCHS = 70
+BATCH_SIZE = 20
+image_depth = 3 #added by myself
 n_classes = 2#added by myself
 
 
@@ -220,17 +222,17 @@ def LeNet(x):
 
     return logits
 
-x = tf.placeholder(tf.float32, (None, 32, 32, 1))#1
+x = tf.placeholder(tf.float32, (None, 32, 32, 3))#1
 y = tf.placeholder(tf.int32, (None))
 one_hot_y = tf.one_hot(y, n_classes)
 
-rate = 0.003
+rate = 0.0003
 
 logits = LeNet(x)
 
 varss = tf.trainable_variables()
 lossL2 = tf.add_n([ tf.nn.l2_loss(v) for v in varss
-                    if '_b' not in v.name ]) * 0.0001
+                    if '_b' not in v.name ]) * 0.0005
 
 cross_entropy = tf.nn.softmax_cross_entropy_with_logits_v2(logits=logits, labels = one_hot_y)
 loss_operation = tf.reduce_mean(cross_entropy) + lossL2
