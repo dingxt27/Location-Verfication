@@ -166,10 +166,58 @@ session.close()'''''
 EPOCHS = 70
 BATCH_SIZE = 20
 image_depth = 3 #added by myself
-n_classes = 2#added by myself
+n_classes = 3#added by myself
+
+from keras.models import Sequential
+from keras.layers import Conv2D, MaxPooling2D
+from keras.layers import Activation, Dropout, Flatten, Dense
+import matplotlib.pyplot as plt
+from keras.layers import BatchNormalization
 
 
-def LeNet(x):
+model = Sequential()
+model.add(Conv2D(32,kernel_size=3,activation='relu', input_shape=(32,32,3)))
+model.add(MaxPooling2D(pool_size=(2,2)))
+
+model.add(Conv2D(28,kernel_size=3,activation='relu'))
+model.add(MaxPooling2D(pool_size=(2,2)))
+
+model.add(Flatten())
+model.add(Dense(120,activation='relu'))
+model.add(Dropout(0.8))
+#model.add(BatchNormalization())
+model.add(Dense(84,activation='relu'))
+model.add(Dropout(0.5))
+#model.add(BatchNormalization())
+model.add(Dense(n_classes,activation='softmax'))#3 means 3 classes
+
+model.compile(loss='sparse_categorical_crossentropy',optimizer= 'adam', metrics=['accuracy'])
+history = model.fit(images_a, labels_a,batch_size=BATCH_SIZE,nb_epoch=EPOCHS,validation_split=0.33,verbose=2)
+
+plt.plot(history.history['acc'])
+plt.plot(history.history['val_acc'])
+plt.title('Model accuracy')
+plt.ylabel('Accuracy')
+plt.xlabel('Epoch')
+plt.legend(['Train', 'Validation'], loc='upper left')
+plt.show()
+
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.title('Model loss')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.legend(['Train', 'Validation'], loc='upper left')
+plt.show()
+
+socre=model.evaluate(test_images32_a,test_labels_a ,batch_size=BATCH_SIZE, verbose=1)
+print(model.metrics_names)
+print(socre)
+
+
+
+
+'''def LeNet(x):
     # Arguments used for tf.truncated_normal, randomly defines variables for the weights and biases for each layer
     mu = 0
     sigma = 0.1
@@ -289,4 +337,4 @@ with tf.Session() as sess:
 plt.plot(cost_arr)
 plt.ylabel('Loss')
 plt.xlabel('Epoch')
-plt.show()
+plt.show()'''''
